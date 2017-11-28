@@ -39,6 +39,15 @@ end
 if(N==2)
     hold on
     plotv(w', 'black')
+    x = [0, w(1)];
+    y = [0, w(2)];
+    w_coeffs = polyfit(x, y, 1);
+    w_orth_a = -1/w_coeffs(1);
+    w_orth_b = 0;
+    axis equal
+    xlims = xlim(gca);
+    w_orth = xlims*w_orth_a+w_orth_b
+    line( xlims, w_orth);    
     hold off
 end
 
