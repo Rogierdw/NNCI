@@ -1,4 +1,4 @@
-function [ w, success ] = rosenblatt( n_max, data, labels )
+function [ w, success ] = rosenblatt( n_max, data, labels ,c)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -13,8 +13,8 @@ end
 for n = 1:n_max % number of epochs
     changed = 0;
     for t = 1:size(data,1) % for each data-point
-        E_mu_t = sign(dot(w,data(t,:)*labels(t)));
-        if (E_mu_t <= 0)
+        E_mu_t = dot(w,data(t,:)*labels(t));
+        if (E_mu_t <= c)
             w = w + (1/N)*data(t,:)*labels(t);
             changed = 1;
         end
@@ -28,7 +28,7 @@ success = 1;
 if (changed ~= 0) % only when n == n_max, check if maybe is still successful
     for t = 1:size(data,1)
         E_v = sign(dot(w,data(t,:)*labels(t)));
-        if(E_v) <= 0
+        if(E_v) <= c
             success = 0;
             break
         end
