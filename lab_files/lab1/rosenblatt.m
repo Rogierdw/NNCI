@@ -46,7 +46,7 @@ if(N==2)
     w_orth_b = 0;
     axis equal
     xlims = xlim(gca);
-    w_orth = xlims*w_orth_a+w_orth_b
+    w_orth = xlims*w_orth_a+w_orth_b;
     line( xlims, w_orth);    
     hold off
 end
