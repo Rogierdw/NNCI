@@ -113,7 +113,7 @@ for i = 1:size(c,2)
         for k = 1:n_D
             [data, labels] = data_matrix(round(alpha(j)*N), N);
             [w, success] = rosenblatt(n_max, data, labels, c(i));
-            y(j,i) = y(j,i) + success
+            y(j,i) = y(j,i) + success;
         end
         y(j,i) = y(j,i)/n_D;
     end
