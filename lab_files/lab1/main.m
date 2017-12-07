@@ -78,9 +78,9 @@ y = zeros(size(alpha,2),size(N,2));
 c = 0;
 
 for i = 1:size(N,2)
-    for j = size(alpha,2):-1:1
+    for j = 1:size(alpha,2)
         for k = 1:n_D
-            [data, labels] = data_matrix(int8(alpha(j)*N(i)), int8(N(i)));
+            [data, labels] = data_matrix(round(alpha(j)*N(i)), round(N(i)));
             [w, success] = rosenblatt(n_max, data, labels, c);
             y(j,i) = y(j,i) + success;
         end
