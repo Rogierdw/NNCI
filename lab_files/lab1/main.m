@@ -78,7 +78,7 @@ y = zeros(size(alpha,2),size(N,2));
 c = 0;
 
 for i = 1:size(N,2)
-    for j = 1:size(alpha,2)
+    for j = size(alpha,2):-1:1
         for k = 1:n_D
             [data, labels] = data_matrix(int8(alpha(j)*N(i)), int8(N(i)));
             [w, success] = rosenblatt(n_max, data, labels, c);
@@ -93,7 +93,7 @@ plot(alpha, y)
 title('Rosenblatt perceptron training - n_D = 100, n_{max} = 200, c = 0')
 xlabel('\alpha (P/N)')
 ylabel('Q_{l.s.}')
-legend('N = 5', 'N = 20', 'N = 50', 'N = 100')
+legend('N = 5', 'N = 20', 'N = 50','N = 100')
 
 
 
