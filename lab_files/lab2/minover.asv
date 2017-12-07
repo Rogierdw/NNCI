@@ -1,0 +1,28 @@
+function [ w, success ] = minover( n_max, data, labels, c )
+%MINOVER Summary of this function goes here
+%   Detailed explanation goes here
+
+w = zeros(1,size(data,2));
+N = size(w,2);
+success = 0;
+
+if(N==2)    % for printing in 2D
+    scatter_(data, labels);
+end
+
+for n = 1:n_max % number of epochs
+    K_min = 100;
+    x = randperm(size(data,1));
+    data = data(x,:);
+    labels = labels(x);
+    for t = 1:size(data,1)
+        K_v_t = dot(w,data(t,:)*labels(t))/norm(w);
+        if K_v_t < K_min
+            K_min = K_v_t;
+            u = t;
+        end
+    end
+    w = w + (1/N)*data(t,:)*labels(t);
+
+end
+
