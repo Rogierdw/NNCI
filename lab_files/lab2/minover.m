@@ -2,11 +2,12 @@ function [ w ] = minover( n_max, data, labels)
 %MINOVER Summary of this function goes here
 %   Detailed explanation goes here
 
-
 w = zeros(1,size(data,2));
 N = size(w,2);
 
 if(N==2)    % for printing in 2D
+    close all
+    
     scatter_(data, labels);
 end
 
@@ -20,10 +21,11 @@ for n = 1:n_max % number of epochs
         K_v_t = dot(w,data(t,:)*labels(t)); % Stability calculation
         if K_v_t < K_min % Smallest stability search
             K_min = K_v_t;
-            u = t;
+            dat_min = data(t,:);
+            lab_min = labels(t);
         end
     end
-    w = w + (1/N)*data(u,:)*labels(u); % Actual update
+    w = w + (1/N)*dat_min*lab_min; % Actual update
 end
 
 if(N==2)
