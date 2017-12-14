@@ -95,6 +95,36 @@ xlabel('\alpha (P/N)')
 ylabel('Q_{l.s.}')
 legend('N = 5', 'N = 20', 'N = 50','N = 100')
 
+%% Bonus 2
+clear all
+close all
+clc
+
+N = 20;
+alpha = 0.75:0.25:3.0;
+n_D = 100;
+n_max = 200;
+c = [-0.5, -0.25, 0, 0.25, 0.5];
+y = zeros(size(alpha,2),size(c,2));
+
+
+for i = 1:size(c,2)
+    for j = 1:size(alpha,2)
+        for k = 1:n_D
+            [data, labels] = data_matrix(round(alpha(j)*N), N);
+            [w, success] = rosenblatt(n_max, data, labels, c(i));
+            y(j,i) = y(j,i) + success;
+        end
+        y(j,i) = y(j,i)/n_D;
+    end
+end
+
+plot(alpha, y)
+
+title('Rosenblatt perceptron training - N = 20, n_D = 100, n_{max} = 200, c = 0')
+xlabel('\alpha (P/N)')
+ylabel('Q_{l.s.}')
+legend('c = -0.5','c = -0.25', 'c = 0.0', 'c = 0.25', 'c = 0.5')
 
 
 

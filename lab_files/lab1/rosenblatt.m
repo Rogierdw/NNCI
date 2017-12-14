@@ -15,6 +15,9 @@ for n = 1:n_max+1 % number of epochs
     changed = 0;
     for t = 1:size(data,1) % for each data-point
         E_mu_t = dot(w,data(t,:)*labels(t));
+        if (n == 1 && t == 1)
+            E_mu_t = c;
+        end
         if (E_mu_t <= c)
             w = w + (1/N)*data(t,:)*labels(t);
             changed = 1;
