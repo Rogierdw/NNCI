@@ -84,7 +84,7 @@ for i = 1:size(N,2)
             [w, success] = rosenblatt(n_max, data, labels, c);
             y(j,i) = y(j,i) + success;
         end
-        y(j,i) = y(j,i)/n_D;
+        y(j,i) = y(j,i)/n_D
     end
 end
 
