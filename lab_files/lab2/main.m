@@ -12,10 +12,10 @@ errs = zeros(1, length(alphas));
 for i = 1:length(alphas)
     alpha = alphas(i);
     for j = 1:nD
-        P = N*alpha;
-        [data, labels] = data_matrix2(N);
+        P = round(N*alpha);
+        [data, labels] = data_matrix2(P, N);
         w = minover(nMax, data, labels);
-        errs(i) = errs{1} + calc_gen_error(w); 
+        errs(i) = errs(1) + calc_gen_error(w); 
     end
     errs(i) = errs(i) / nD;
 end
