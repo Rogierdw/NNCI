@@ -5,15 +5,53 @@ clc
 
 alphas = 0.1:0.1:5;
 nD = 10;
-nMax = 200;
-N = 2;
-Ps = 10:10:100;
+nMax = 500;
+N = 20;
 errs = zeros(1, length(alphas));
 
 for i = 1:length(alphas)
-    alpha = alphas(i);
-    for j = 1:length(Ps)
-    for k = 1:nD
-        [data, labels] = data_matrix2()
+    P = int8(N*alphas(i));
+    for j = 1:nD
+        [data, labels] = data_matrix2(P,N);
+        w = minover(nMax, data, labels);
+        errs(i) = errs(i) + calc_gen_error(w); 
     end
+    %errs(i) = errs(i) / nD;
 end
+errs = errs / nD;
+
+plot(alphas,errs)
+
+title('Minover learning curve - N = 20, n_D = 10, n_{max} = 200')
+xlabel('\alpha (P/N)')
+ylabel('Generalization error')
+
+%% Comparison with rosenblatt
+clear all
+close all
+clc
+
+alphas = 0.1:0.1:5;
+nD = 10;
+nMax = 200;
+N = 20;
+errs = zeros(2, length(alphas));
+
+for i = 1:length(alphas)
+    P = int8(N*alphas(i));
+    for j = 1:nD
+        [data, labels] = data_matrix2(P,N);
+        w = minover(nMax, data, labels);
+        errs(i) = errs(i) + calc_gen_error(w); 
+    end
+    %errs(i) = errs(i) / nD;
+end
+errs = errs / nD;
+
+plot(alphas,errs)
+
+title('Minover learning curve - N = 20, n_D = 10, n_{max} = 200')
+xlabel('\alpha (P/N)')
+ylabel('Generalization error')
+legend('Minover', 'Rosenblatt')
+
