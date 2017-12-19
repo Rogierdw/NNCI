@@ -1,4 +1,4 @@
-function [ w ] = minover( n_max, data, labels)
+function [ w, K_max ] = minover( n_max, data, labels)
 %MINOVER Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -18,18 +18,10 @@ for n = 1:n_max % number of epochs
     if time_since_changed >= P % No changes in last P runs
         break
     end
-    K_min = 100;
     x = randperm(size(data,1)); % For random picking of data
     data = data(x,:);
     labels = labels(x);
-    for t = 1:size(data,1)
-        K_v_t = dot(w,data(t,:)*labels(t)); % Stability calculation
-        if K_v_t < K_min % Smallest stability search
-            K_min = K_v_t;
-            dat_min = data(t,:);
-            lab_min = labels(t);
-        end
-    end
+    [~, dat_min, lab_min] = calc_k_min(w, data, labels);
     w_old = w; % placeholder for stopping mehanism
     w = w + (1/N)*dat_min*lab_min; % Actual update
     
@@ -48,6 +40,9 @@ for n = 1:n_max % number of epochs
         time_since_changed = time_since_changed + 1;
     end
 end
+
+% Maximum stability calculation
+K_max = calc_k_min(w,data,labels);
 
 if(N==2)
     hold on
