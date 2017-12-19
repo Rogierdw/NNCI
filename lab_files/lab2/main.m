@@ -130,7 +130,7 @@ labels(labels==2)=-1;
 labels(labels==3)=-1;
 
 %clamp the input with an extra dimension to find an inhomogeneous solution
-data = [data, ones(length(data), 1)];
+data = [data, (-1*ones(length(data), 1))];
     
 nMax = 200;
 part = 30; % twenty percent of the data for testing
