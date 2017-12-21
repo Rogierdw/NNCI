@@ -154,10 +154,11 @@ for i = 1:cv
     for j = 1:part
         test_vec = test_data(j,:);
         prediction = sign(dot(w, test_vec));
-        pred_err(i) = pred_err(i) + ~(test_labels(j) == prediction);
+        pred_err(i) = pred_err(i) + (test_labels(j) ~= prediction);
     end
-    pred_err(i) = pred_err(i)/part;
+    
 end
+pred_err = pred_err / part;
 
 mean(pred_err)
 
