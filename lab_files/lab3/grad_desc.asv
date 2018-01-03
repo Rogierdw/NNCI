@@ -27,16 +27,16 @@ for t = 1:t_max
         idx = randi(P);
         sigm = tanh(dot(w1,train_data(:,idx)))+tanh(dot(w2,train_data(:,idx))); % Not sure if this should be seperate for both weight vectors...
 
-        sigm_der1 = 1-tanh(dot(w1,train_data(:,idx)))^2; %derivation with respect to w1
+        sigm_der1 = 1-tanh(dot(w1,train_data(:,idx)))^2; %
         sigm_der2 = 1-tanh(dot(w2,train_data(:,idx)))^2;
 
-        grad1 = (sigm-train_labels(idx)) * sigm_der1 * train_data(:,idx); % Three parts gradient
-        grad2 = (sigm-train_labels(idx)) * sigm_der2 * train_data(:,idx);
+        grad1 = (sigm-train_labels(idx))*sigm_der1*train_data(:,idx);
+        grad2 = (sigm-train_labels(idx))*sigm_der2*train_data(:,idx);
 
-        w1 = w1 - learnrate*grad1'; % Update step using gradient
+        w1 = w1 - learnrate*grad1';
         w2 = w2 - learnrate*grad2';
     end
-    E(t) = calc_E(train_data, train_labels, w1, w2); % Error calculation with weights on part of data
+    E(t) = calc_E(train_data, train_labels, w1, w2);
     E_test(t) = calc_E(test_data, test_labels, w1, w2);
 end
 
