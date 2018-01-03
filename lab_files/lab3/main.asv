@@ -75,16 +75,14 @@ for x = 1:size(P,2);
     train_size = P(x);
     E_final = zeros(folds,t_max);
     Et_final = zeros(folds,t_max);
+    dat_start = 1;
 
     for i = 1:folds
-        y = randperm(size(xi,2)); % For random picking of data
-        xi = xi(:,y);
-        tau = tau(y);
-        
-        train_data = xi(:,1:train_size);
-        train_labels = tau(1:train_size);
-        test_data = xi(:,train_size+1:train_size+Q);
-        test_labels = tau(train_size+1:train_size+Q);
+        train_data = xi(:,dat_start:dat_start+train_size-1);
+        train_labels = tau(dat_start:dat_start+train_size-1);
+        test_data = xi(:,dat_start+train_size:dat_start+train_size+Q-1);
+        test_labels = tau(dat_start+train_size:dat_start+train_size+Q-1);
+        dat_start = dat_start + train_size+Q;
 
         [E,Et] = grad_desc(t_max, train_data, train_labels, test_data, test_labels);
         E_final(i,:) = E;
@@ -98,7 +96,6 @@ for x = 1:size(P,2);
     res = [E_res;Et_res];
     figure
     plot(t,res)
-    ylim([0 0.4])
     
     txt = sprintf('Gradient Descent - Cost Function (10-fold), P=%g, Q=100', train_size);
     title(txt)
