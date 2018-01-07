@@ -1,13 +1,23 @@
-function [ E, E_test] = grad_desc(t_max, train_data, train_labels, test_data, test_labels )
+function [ E, E_test] = grad_desc(t_max, train_data, train_labels, test_data, test_labels, a , b)
 %GRAD_DESC Summary of this function goes here
 %   Detailed explanation goes here
 PLOT = 0; % Boolean for plotting of weight vectors
+
+if nargin == 5
+    time_dependent = 0;
+    a = 1;
+    b = 1;
+else
+    time_dependent = 1;
+end
+    
+
 
 learnrate = 0.05;
 P = size(train_data,2);
 Q = size(test_data,2);
 N = size(train_data,1);
-%tmax = P*t_max;
+%t_max = P*t_max;
 
 if(N==2)    % for data-plotting in 2D
     close all
@@ -23,6 +33,9 @@ E = zeros(1,t_max);
 E_test = zeros(1,t_max);
 
 for t = 1:t_max
+    if(time_dependent==1)
+        learnrate = a/(b*t);
+    end
     for k = 1:P     % actual epochs = t_max*P
         idx = randi(P);
         sigm = tanh(dot(w1,train_data(:,idx)))+tanh(dot(w2,train_data(:,idx))); % Not sure if this should be seperate for both weight vectors...
