@@ -3,24 +3,25 @@ close all
 clc
 
 alphas = 0.1:0.1:5;
-nD = 10;
-nMax = 500;
+n_D = 50;
+nMax = 2000;
 N = 20;
 errs = zeros(1, length(alphas));
 
 for i = 1:length(alphas)
     P = int8(N*alphas(i));
-    for j = 1:nD
+    for j = 1:n_D
         [data, labels] = data_matrix2(P,N,0);
         w = minover(nMax, data, labels);
         errs(i) = errs(i) + calc_gen_error(w); 
     end
 end
-errs = errs / nD;
+errs = errs / n_D;
 
 plot(alphas,errs)
 
-title('Minover learning curve - N = 20, n_D = 10, n_{max} = 200')
+txt = sprintf('Perceptron learning curve - N = %g, n_D = %g, n_{max} = %g', N, n_D, nMax);
+title(txt)
 xlabel('\alpha (P/N)')
 ylabel('Generalization error')
 
@@ -49,7 +50,8 @@ end
 k_max = k_max / n_D;
 
 plot(alphas, k_max)
-title('Perceptron stability curve - N = 50, n_D = 10, n_{max} = 200')
+txt = sprintf('Perceptron learning curve - N = %g, n_D = %g, n_{max} = %g', N, n_D, nMax);
+title(txt)
 xlabel('\alpha (P/N)')
 ylabel('Maximum stability')
 legend('Minover - Teacher outputs', 'Minover - Random output')
@@ -60,9 +62,9 @@ close all
 clc
 
 alphas = 0.1:0.1:5;
-n_D = 10;
-nMax = 200;
-N = 50;
+n_D = 50;
+nMax = 10000;
+N = 20;
 errs = zeros(2,length(alphas));
 
 for i = 1:length(alphas)
@@ -70,17 +72,18 @@ for i = 1:length(alphas)
     for j = 1:n_D
         [data, labels] = data_matrix2(P,N,0);
         w = minover(nMax, data, labels);
-        errs(1,i) = calc_gen_error(w);
+        errs(1,i) = errs(1,i) + calc_gen_error(w);
         
         w = rosenblatt(nMax, data, labels, 0);
-        errs(2,i) = calc_gen_error(w);
+        errs(2,i) = errs(2,i) + calc_gen_error(w);
     end
 end
 errs = errs / n_D;
 
 plot(alphas,errs)
 
-title('Perceptron learning curve - N = 50, n_D = 10, n_{max} = 200')
+txt = sprintf('Perceptron learning curve - N = %g, n_D = %g, n_{max} = %g', N, n_D, nMax);
+title(txt)
 xlabel('\alpha (P/N)')
 ylabel('Generalization error')
 legend('Minover', 'Rosenblatt')

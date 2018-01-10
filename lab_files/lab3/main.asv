@@ -117,7 +117,7 @@ close all
 load data3.mat
 
 a = 1;
-b = [1,10,20,50];
+b = [1,10,20,50,100];
 
 t_max = 50;
 folds = 10;
@@ -146,14 +146,14 @@ end
 E_res = E_final/folds;
 Et_res = Et_final/folds;
 t = 1:t_max;
+%% Pretty plotting
 
 figure
-colors = ['m', 'c', 'r', 'b'];
 hold on
 for i = 1:size(b,2)
-    plot(t,E_res(i,:),['-' colors(i)])
-    plot(t,Et_res(i,:),['--' colors(i)])
-end
+    
+plot(t,E_res)
+plot(t,Et_res,'--')
 ylim([0 0.5])
 
 %
@@ -164,5 +164,5 @@ txt = sprintf('Gradient Descent - Cost Function (10-fold), P=%g, Q=%g', dat_size
 title(txt)
 xlabel('Epochs (t)')
 ylabel('Mean Cost')
-legend('E,\eta = 1/t', 'E_{test},\eta = 1/t','E,\eta = 1/10t', 'E_{test},\eta = 1/10t',',\eta = 1/20t', 'E_{test},\eta = 1/20t','E,\eta = 1/50t', 'E_{test},\eta = 1/50t')
+legend('E\t,\eta = 1/t', 'E_{test}\t,\eta = 1/t','E\t,\eta = 1/10t', 'E_{test}\t,\eta = 1/10t','E\t,\eta = 1/20t', 'E_{test}\t,\eta = 1/20t','E\t,\eta = 1/50t', 'E_{test}\t,\eta = 1/50t','E\t,\eta = 1/100t', 'E_{test}\t,\eta = 1/100t')
     
