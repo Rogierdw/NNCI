@@ -13,7 +13,7 @@ end
     
 
 
-learnrate = 0.05;
+learnrate = 0.001;
 P = size(train_data,2);
 Q = size(test_data,2);
 N = size(train_data,1);
@@ -57,14 +57,12 @@ if PLOT
     figure
     bar(w1)
     title('Gradient Descent (single fold)- Weight vector w_1')
-    ylim([-1.2 1.2])
     xlabel('Dimension')
     ylabel('weight')
 
     figure
     bar(w2)
     title('Gradient Descent (single fold)- Weight vector w_2')
-    ylim([-1.2 1.2  ])
     xlabel('Dimension')
     ylabel('weight')
 end

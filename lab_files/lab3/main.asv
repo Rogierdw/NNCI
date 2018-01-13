@@ -4,7 +4,7 @@ close all
 
 load data3.mat
 
-t_max = 50;
+t_max = 500;
 P = 250;
 Q = 250;
 [E,Et] = grad_desc(t_max, xi(:,1:P), tau(1:P), xi(:,P+1:P+Q), tau(P+1:P+Q));
@@ -13,7 +13,6 @@ res = [E;Et];
 
 figure
 plot(t,res)
-ylim([0 0.4])
 txt = sprintf('Gradient Descent - Cost Function (single training), P=%g, Q=%g', P,Q);
 title(txt)
 xlabel('Epochs (t)')
@@ -27,7 +26,7 @@ close all
 
 load data3.mat
 
-t_max = 50;
+t_max = 500;
 folds = 10;
 
 dat_size=size(xi,2)/(2*folds);
@@ -69,7 +68,7 @@ close all
 
 load data3.mat
 
-t_max = 50;
+t_max = 500;
 folds = 10;
 
 P = [20, 50, 100, 200, 500, 1000, 2000];
@@ -102,7 +101,7 @@ for x = 1:size(P,2);
     res = [E_res;Et_res];
     figure
     plot(t,res)
-    ylim([0 0.4])
+    %ylim([0 0.4])
     
     txt = sprintf('Gradient Descent - Cost Function (10-fold), P=%g, Q=250', train_size);
     title(txt)
@@ -119,9 +118,9 @@ close all
 load data3.mat
 
 a = 1;
-b = [1,10,20,50];
+b = [1,10,100,1000];
 
-t_max = 50;
+t_max = 500;
 folds = 10;
 
 dat_size=size(xi,2)/(2*folds);
@@ -177,10 +176,10 @@ txt = sprintf('Gradient Descent - Cost Function (10-fold), P=%g, Q=%g', dat_size
 title(txt)
 xlabel('Epochs (t)')
 ylabel('Mean Cost')
-legend('E,\eta = 0.05', 'E_{test}, \eta = 0.05','E,\eta = 1/t', 'E_{test},\eta = 1/t','E,\eta = 1/10t', 'E_{test},\eta = 1/10t',',\eta = 1/20t', 'E_{test},\eta = 1/20t','E,\eta = 1/50t', 'E_{test},\eta = 1/50t')
+legend('E,\eta = 0.001', 'E_{test}, \eta = 0.001',',\eta = 1/100t', 'E_{test},\eta = 1/100t')
     
 %% Bonus 2 extra, FOR THIS EXPERIMENT > CHANGE THE LEARNING RATE BY HAND IN GRAD_DESC.M
-% Constant learn
+% Constant learning rate vs time-dependent learning rate
 
 clear all
 close all
